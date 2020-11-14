@@ -1,18 +1,27 @@
-
 public class EmpWageBuilder {
 	public static final int IS_PART_TIME = 1;
 	public static final int IS_FULL_TIME = 2;
-	public static final int EMP_RATE_PER_HOUR = 20;
-	public static final int NUM_OF_WORKING_DAYS = 2;
-	public static final int MAX_HRS_IN_MONTH = 10;
 	
-	public static int computeEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+	private final String company;
+	private final int empRatePerHour;
+	private final int numOfWorkingDays; 
+	private final int maxHoursPerMonth;
+	private int totalEmpWage;
+	
+	public EmpWageBuilder(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+		this.company = company;
+		this.empRatePerHour = empRatePerHour;
+		this.numOfWorkingDays = numOfWorkingDays;
+		this.maxHoursPerMonth = maxHoursPerMonth;
+	}
+	
+	public void computeEmpWage() {	
 		System.out.println("Welcome To Employee Wage Computation");
 		// Variables
-		int empHrs = 0, totalEmpHrs = 0, totalWorkingDays =0;
+		int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
 		// Computation
 		while (totalEmpHrs <= maxHoursPerMonth &&
-				totalWorkingDays < numOfWorkingDays){
+				totalWorkingDays < numOfWorkingDays) {
 			totalWorkingDays++;
 			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 			switch (empCheck) {
@@ -26,17 +35,24 @@ public class EmpWageBuilder {
 					empHrs = 0;
 			}
 			totalEmpHrs += empHrs;
-			System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " +empHrs);
+			System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " + empHrs);
 		}
-		int totalEmpWage = totalEmpHrs * empRatePerHour;
-		System.out.println("Total Emp Wage for Company:"  + company +" is: " +totalEmpWage);
-		//return totalEmpWage;
-		return totalEmpWage;
+		totalEmpWage = totalEmpHrs * empRatePerHour;
 	}
+	
+	@Override
+	public String toString() {
+		return "Total Emp Wage for Company:"  +company+" is: " + totalEmpWage;
+	}
+	
 	public static void main(String[] args) {
-		computeEmpWage("DMart", 200, 2, 10);
-		computeEmpWage("BigBazzar", 150, 4, 20);
+		EmpWageBuilder dMart = new EmpWageBuilder("DMart", 200, 2, 10);
+		EmpWageBuilder bigBazzar = new EmpWageBuilder("BigBazzar", 150, 4, 20);
+		dMart.computeEmpWage();
+		System.out.println(dMart);
+		bigBazzar.computeEmpWage();
+		System.out.println(bigBazzar);
+		
 	}
 	
 }
-  
