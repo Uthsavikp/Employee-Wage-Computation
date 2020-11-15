@@ -1,3 +1,9 @@
+interface IEmpWageBuilder
+{
+	public void addCompany(String company, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
+}
+
+
 class CompanyEmpWage
 {
     // instance constants
@@ -71,7 +77,7 @@ public class EmpWageBuilder
         }
     }
 
-    void calculateTotalWage()
+  public void calculateTotalWage()
     {
         for (CompanyEmpWage company : companies)
         {
