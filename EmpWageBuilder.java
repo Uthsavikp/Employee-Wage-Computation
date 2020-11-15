@@ -1,8 +1,7 @@
 interface IEmpWageBuilder
 {
-	public void addCompany(String company, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
+        public void addCompany(String company, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
 }
-
 
 class CompanyEmpWage
 {
@@ -27,7 +26,8 @@ class CompanyEmpWage
     {
         this.totalEmpWage = totalEmpWage;
     }
-
+    
+    @Override
     public String toString()
     {
         System.out.println("Details of " + COMPANY_NAME + " employee");
@@ -38,7 +38,8 @@ class CompanyEmpWage
     }
 }
 
-public class EmpWageBuilder
+class EmpWageBuilder implements IEmpWageBuilder
+
 {
     // class constants
     public static final int PART_TIME = 1;
@@ -54,7 +55,7 @@ public class EmpWageBuilder
         index = 0;
     }
 
-    void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs)
+   public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs)
     {
         companies[index++] = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
     }
@@ -77,7 +78,7 @@ public class EmpWageBuilder
         }
     }
 
-  public void calculateTotalWage()
+    void calculateTotalWage()
     {
         for (CompanyEmpWage company : companies)
         {
