@@ -1,8 +1,12 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 interface IEmpWageBuilder
 {
         public void addCompany(String company, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
+        
+        public void computeEmpWage();
+        public int getTotalWage(String company);
 }
 
 class CompanyEmpWage
@@ -40,24 +44,25 @@ class CompanyEmpWage
     }
 }
 
-class EmpWageBuilder implements IEmpWageBuilder
-
-{
+public class EmpWageBuilder implements IEmpWageBuilder {
     // class constants
     public static final int PART_TIME = 1;
     public static final int FULL_TIME = 2;
     
     ArrayList<CompanyEmpWage> companies;
+    HashMap<String, Integer> totalEmpWages;
     
     public EmpWageBuilder()
     {
         companies = new  ArrayList<>();
+        totalEmpWages = new HashMap<>();
     }
 
    public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs)
     {
         CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
         companies.add(company);
+        totalEmpWages.put(companyName,0);
     }
 
     int generateEmployeeType()
@@ -103,8 +108,18 @@ class EmpWageBuilder implements IEmpWageBuilder
             totalWage += wage;
             System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
         }
+        totalEmpWages.put(companyEmpWage.COMPANY_NAME, totalWage);
         return totalWage;
     }
+    
+    void printTotalEmpWages()
+    {
+    	System.out.println("The Companies And Their Total Employee Wages Are:");
+    	for (String companyName : totalEmpWages.keySet())
+    	{
+    	System.out.println(companyName + ": " + totalEmpWages.get(companyName));
+    }
+}
 
     public static void main(String args[])
     {
@@ -113,5 +128,23 @@ class EmpWageBuilder implements IEmpWageBuilder
         empWageBuilder.addCompany("BigBazzar", 150, 4, 20);
         empWageBuilder.addCompany("More", 120, 4, 20);
         empWageBuilder.calculateTotalWage();
+        empWageBuilder.printTotalEmpWages();
     }
+
+	@Override
+	public void computeEmpWage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getTotalWage(String company) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 }
+	
+    
+
