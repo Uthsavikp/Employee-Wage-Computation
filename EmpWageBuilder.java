@@ -44,13 +44,14 @@ class CompanyEmpWage
     }
 }
 
-public class EmpWageBuilder implements IEmpWageBuilder {
+public class EmpWageBuilder {
     // class constants
     public static final int PART_TIME = 1;
     public static final int FULL_TIME = 2;
     
     ArrayList<CompanyEmpWage> companies;
     HashMap<String, Integer> totalEmpWages;
+ 
     
     public EmpWageBuilder()
     {
@@ -130,18 +131,6 @@ public class EmpWageBuilder implements IEmpWageBuilder {
         empWageBuilder.calculateTotalWage();
         empWageBuilder.printTotalEmpWages();
     }
-
-	@Override
-	public void computeEmpWage() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getTotalWage(String company) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 
 }
