@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 interface IEmpWageBuilder
 {
         public void addCompany(String company, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
@@ -44,20 +46,18 @@ class EmpWageBuilder implements IEmpWageBuilder
     // class constants
     public static final int PART_TIME = 1;
     public static final int FULL_TIME = 2;
-    // instance variables
-    int noOfCompanies, index;
-    CompanyEmpWage[] companies;
-
-    public EmpWageBuilder(int noOfCompanies)
+    
+    ArrayList<CompanyEmpWage> companies;
+    
+    public EmpWageBuilder()
     {
-        this.noOfCompanies = noOfCompanies;
-        companies = new CompanyEmpWage[noOfCompanies];
-        index = 0;
+        companies = new  ArrayList<>();
     }
 
    public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs)
     {
-        companies[index++] = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+        CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+        companies.add(company);
     }
 
     int generateEmployeeType()
@@ -78,7 +78,7 @@ class EmpWageBuilder implements IEmpWageBuilder
         }
     }
 
-    void calculateTotalWage()
+    public void calculateTotalWage()
     {
         for (CompanyEmpWage company : companies)
         {
@@ -91,7 +91,7 @@ class EmpWageBuilder implements IEmpWageBuilder
     int calculateTotalWage(CompanyEmpWage companyEmpWage)
     {
         System.out.println("Computation of total wage of " + companyEmpWage.COMPANY_NAME + " employee");
-    System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", "Total working hrs");
+        System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", "Total working hrs");
 
         int workingHrs, totalWage = 0;
         for (int day = 1, totalWorkingHrs = 0; day <= companyEmpWage.MAX_WORKING_DAYS
@@ -101,16 +101,17 @@ class EmpWageBuilder implements IEmpWageBuilder
             workingHrs = getWorkingHrs(empType);
             int wage = workingHrs * companyEmpWage.WAGE_PER_HR;
             totalWage += wage;
-          System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
+            System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
         }
         return totalWage;
     }
 
     public static void main(String args[])
     {
-        EmpWageBuilder empWageBuilder = new EmpWageBuilder(2);
+        EmpWageBuilder empWageBuilder = new EmpWageBuilder();
 		empWageBuilder.addCompany("DMart", 200, 4, 20);
         empWageBuilder.addCompany("BigBazzar", 150, 4, 20);
+        empWageBuilder.addCompany("More", 120, 4, 20);
         empWageBuilder.calculateTotalWage();
     }
 }
